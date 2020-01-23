@@ -1,0 +1,43 @@
+{% for challenge in user_pk.user_profile.donated.all %}
+
+<div class="col-12 my-3">
+    <div class="{% if challenge.status == 'Failed' %}
+        accomplished-fail
+    {% elif challenge.status == 'Waiting' %}
+        accomplished-waiting
+    {% elif challenge.status == 'Success' %}
+        accomplished-success
+    {% else %}
+        challenge
+    {% endif %}
+    challenge shadow-sm">
+    <a href="{% url 'user_profile' challenge.user.pk %}">
+        <h6 class="float-left">{{ challenge.user.username }}</h6>
+    </a>
+        {% if challenge.status != 'Active' %}
+            <a href="{% url 'challenge_view' challenge.pk %}">
+        {% endif %}
+            <h6 class="text-right">{{ challenge.status }}</h6>
+            <p>
+                {{ challenge.about }}
+            </p>
+            <div class="mt-3">
+                {% for tag in challenge.tags.all %}
+                    <span class="badge badge-info">
+                        {{ tag }}
+                    </span>
+                {% endfor %}
+            </div>
+            <p class="text-right">{{ challenge.published }}</p>
+            <div class="progress mt-2">
+                <div class="progress-bar progress-bar bg-info" role="progressbar" style="width: 100%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
+                <p>$<span class="reached">{{ challenge.price_reached }}</span> / $<span class="goal">{{ challenge.price_goal }}</span></p>
+                </div>
+            </div>
+        {% if challenge.status != 'Active' %}
+            </a>
+        {% endif %}
+    </div>
+</div>
+
+{% endfor %}

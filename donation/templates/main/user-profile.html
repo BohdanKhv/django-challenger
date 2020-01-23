@@ -1,0 +1,120 @@
+{% if user.is_authenticated  %}
+
+{% include 'main/includes/header.html' %}
+{% include 'main/includes/messages.html' %}
+
+<main>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <div class="card user mb-3 shadow-sm-white">
+                    <div class="card-body">
+                        <div>
+                            <div class="row justify-content-center">
+                                <div class="col-4">
+                                    <div class="avatar text-center">
+                                        <div style="background-image: URL({{ user_pk.user_profile.profile_photo.url }});"
+                                             class="profile-photo rounded-circle">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-8">
+                                    <a class="float-right btn btn-outline-dark btn-sm" href="{% url 'main' %}"><i class="fas fa-key text-white-50"></i></a>
+                                    <h5>{{ user_pk.username }}</h5>
+                                    <div>
+                                    {% if user == user_pk %}
+                                        <a class="text-dark" href="{% url 'edit_user_profile' user.pk %}">Edit profile</a>
+                                    {% endif %}
+                                    </div>
+                                    {% if user == user_pk %}
+                                        <a href="#" class="text-warning" title="Buy more gold">
+                                            <i class="fas fa-coins text-warning mr-1 mt-2"></i>{{ user.user_profile.gold }}
+                                        </a>
+                                    {% endif %}
+                                    <div class="row">
+                                        <div class="col-3 pr-0">
+                                            <a class="btn btn-link text-info btn-sm my-2 p-0 mr-1" title="Challenges uploaded">
+                                                <i class="fas fa-feather text-info mr-1"></i> {{ user_pk.user_challenge.all.count }}
+                                            </a>
+                                        </div>
+                                        <div class="col-4 p-0">
+                                            <a href="{% url 'user_follows' user_pk.pk %} " class="btn btn-link text-info btn-sm my-2 py-0 mr-1">
+                                                Follow {{ user_pk.user_profile.follows.all.count }}
+                                            </a>
+                                        </div>
+                                        <div class="col-5 p-0">
+                                            <a href="{% url 'user_followers' user_pk.pk %}" class="btn btn-link text-info btn-sm my-2 py-0">
+                                                Followers {{ user_pk.user_profile.user_followers.all.count }}
+                                            </a>
+                                        </div>
+                                    </div>
+                                    {% if user != user_pk %}
+                                        {% if user_pk.user_profile in user.user_profile.follows.all %}
+                                            <a href="{% url 'user_follow' user_pk.pk %}" data-pk="{{user_pk.pk}}" class="followToggleForm btn btn-sm btn-outline-danger pt-0 pb-0 mb-1">Unfollow</a>
+                                        {% else %}
+                                            <a href="{% url 'user_follow' user_pk.pk %}" class="followToggleForm btn btn-sm btn-outline-info pt-0 pb-0 mb-1">Follow</a>
+                                        {% endif %}
+                                    {% endif %}
+                                    <p>
+                                        {{ user_pk.user_profile.about }}
+                                    </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% if user == user_pk %}
+                    <a href="{% url 'challenge_create' %}" class="w-100 btn btn-outline-info">
+                        <i class="fas fa-plus"></i>
+                    </a>
+                    {% else %}
+                    <a href="{% url 'user_profile' user.pk %}" class="w-100 btn btn-outline-info">
+                        <i class="fas fa-arrow-left"></i>
+                    </a>
+                    {% endif %}
+                    <div class="card my-3 shadow-sm content">
+                        <div class="card-body">
+                            <div class="user-content">
+                                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" id="challenges-tab" data-toggle="tab" href="#challenges" role="tab" aria-controls="home" aria-selected="true">
+                                            Challenges
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="participation-tab" data-toggle="tab" href="#participation" role="tab" aria-controls="profile" aria-selected="false">
+                                            Participation
+                                        </a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content" id="myTabContent">
+                                    <div class="tab-pane fade show active" id="challenges" role="tabpanel" aria-labelledby="challenges-tab">
+                                        <div class="row mt-3">
+                                            <div class="col-12 in-progress">
+                                                {% include 'challenge/challenge-active.html' %}
+                                            </div>
+                                            <hr class="w-75" />
+                                            <div class="col-12 progress-done">
+                                                {% include 'challenge/challenge-done.html' %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="participation" role="tabpanel" aria-labelledby="participation-tab">
+                                        <div class="row mt-3">
+                                            <div class="col-12 participation-in-progress">
+                                                {% include 'challenge/challenge-donated.html' %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% include 'main/includes/navbar.html' %}
+{% include 'main/includes/footer.html' %}
+{% endif  %}

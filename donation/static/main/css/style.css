@@ -1,0 +1,208 @@
+body,
+html,
+main,
+.logIn .row {
+    margin: 0;
+    height: 100%;
+    width: 100%;
+}
+body a {
+    text-decoration: none!important;
+}
+i {
+    /*color: #818384;*/
+    color: #d7dadc;
+}
+.comment-field {
+    opacity: 1;
+    transition: 0.3s;
+}
+.opacity-one {
+    opacity: 1;
+    transition: 0.3s;
+}
+.opacity-zero {
+    opacity: 0!important;
+}
+hr {
+    background-color: #343536;
+}
+body {
+    color: #d7dadc!important;
+    background-color: #030303!important;
+    overflow-x: hidden;
+}
+body main .container {
+    padding-bottom: 60px;
+}
+.nav-tabs {
+    border-color: #343536!important;
+}
+.nav-tabs a {
+    color: #d7dadc!important;
+}
+.nav-link.active {
+    color: #d7dadc!important;
+    background-color: #141415!important;
+    border-color: #343536!important;
+}
+.card.user,
+.card.content {
+    color: #d7dadc;
+    border: 2px #343536 solid!important;
+    background-color: #1A1A1B;
+}
+.card.user h5 a {
+    text-decoration: none;
+    color: #d7dadc;
+}
+.donation-amount-label {
+    transition: 0.5s;
+    width: 100%;
+    border: 1px solid #f4f4f4;
+    border-radius: .25rem;
+    cursor: pointer;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+.donation-amount-label:hover {
+    border-color: #17a2b8;
+}
+.active-donation {
+    color: #1A1A1B;
+    background-color: #f4f4f4;
+}
+.profile-photo {
+    width: 115px;
+    height: 115px;
+    background-size: cover;
+    margin-right: auto;
+    margin-left: auto;
+    background-position: center;
+    border: 5px solid #343536;
+}
+.comment-btn {
+    cursor: pointer;
+    transition: 0.3s;
+}
+.profile-photo-btn i {
+    color: #343536;
+    margin-top: 30%;
+    font-size: 5vh;
+}
+.profile-photo-btn:hover {
+    transition: 0.5s;
+    opacity: 0.5;
+}
+.challenge {
+    padding: 15px;
+    margin: 5px;
+    border: 2px #343536 solid;
+    border-radius: 4px;
+    background-color: #141415;
+}
+.accomplished-success:hover,
+.accomplished-success:hover a,
+.accomplished-fail:hover,
+.accomplished-fail:hover a,
+.accomplished-waiting:hover,
+.accomplished-waiting:hover a {
+    text-decoration: none;
+    color: #d7dadc!important;
+    background-color: #2e2e2e!important;
+}
+.accomplished-waiting a, 
+.accomplished-success a, 
+.accomplished-fail a {
+    text-decoration: none;
+    color: black;
+}
+.challenge p {
+    margin-top: auto;
+    margin-bottom: auto;
+}
+.your-participation {
+    position: relative;
+}
+.progress {
+    border: 2px #343536 solid;
+    background-color: #1A1A1B!important;
+    position: relative;
+}
+.progress p {
+    color: #d7dadc;
+    position: absolute;
+    text-align: center;
+    width: 100%;
+    height: 26px;
+}
+.card-body .progress {
+    height: 30px;
+    font-weight: bold;
+    font-size: 16px;
+}
+.accomplished-success {
+    background-color: rgb(48, 233, 104)!important;
+}
+.accomplished-waiting {
+    background-color: rgb(235, 224, 81)!important;
+}
+.accomplished-fail {
+    background-color: rgb(245, 69, 69)!important;
+}
+.accomplished-waiting button, 
+.accomplished-success button, 
+.accomplished-fail button {
+    display: none;
+}
+.accomplished-waiting .progress-bar p,
+.accomplished-success .progress-bar p,
+.accomplished-fail .progress-bar p {
+    color: #030303;
+}
+.action-post-btn {
+    color: #d7dadc;
+}
+.action-post-btn span {
+    font-size: 2vh;
+}
+.waiting-for-upload .button-icon {
+    padding: 40px;
+    border-color: white;
+    border-radius: 100px;
+}
+.waiting-for-upload button:focus {
+    outline: none;
+}
+.waiting-for-upload button i {
+    color: #2e2e2e;
+    font-size: 50px;
+}
+.bottom-nav {
+    position: fixed;
+    width: 100%;
+    padding: 10px;
+    font-size: 20px;
+    background-color: #2e2e2e;
+    bottom: 0px;
+    z-index: 999;
+}
+.bottom-nav a {
+    color: #d7dadc;
+}
+.info-messages {
+    z-index: 999;
+}
+
+@media (max-width: 1010px) {
+    .profile-photo {
+        width: 100px;
+        height: 100px;
+    }
+}
+@media (max-width: 450px) {
+    .profile-photo {
+        width: 95px;
+        height: 95px;
+    }
+}

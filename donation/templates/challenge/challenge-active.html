@@ -1,0 +1,72 @@
+{% for challenge in user_pk.user_challenge.all %}
+    {% if challenge.status == 'Active' %}
+        <div class="col-12 my-3">
+            <div class="challenge shadow-sm">
+
+                <h6 class="text-right">{{ challenge.status }}</h6>
+                <p>
+                    {{ challenge.about }}
+                </p>
+                <div class="mt-3">
+                    {% for tag in challenge.tags.all %}
+                    <a href="{% url 'challenge_tag_search' %}?tag={{tag.slug}}">
+                        <span class="badge badge-info">
+                            {{ tag }}
+                        </span>
+                    </a>
+                    {% endfor %}
+                </div>
+                <p class="text-right">{{ challenge.published }}</p>
+                {% if challenge.price_reached == 0 %}
+                    {% if user.pk == challenge.user.pk %}
+                        <p class="text-right">
+                            <a class="text-danger" href="{% url 'challenge_delete' challenge.pk %}">
+                                <small>Delete</small>
+                            </a>
+                        </p>
+                    {% endif %}
+                {% endif %}
+                <div class="progress mt-2">
+                    <div class="progress-bar progress-bar bg-info" role="progressbar" style="width: 100%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
+                    <p>$<span class="reached">{{ challenge.price_reached }}</span> / $<span class="goal">{{ challenge.price_goal }}</span></p>
+                    </div>
+                </div>
+                <form action="{% url 'challenge_donate' challenge.pk %}" method="POST">
+                    {% csrf_token %}
+                    <div class="row text-center mt-2">
+                        <div class="col-3 pr-1">
+                            <div class="donation-amount-label">
+                                <input name="donation-value" value="1" type="radio" style="display: none;" />
+                                $1
+                            </div>
+                        </div>
+                        <div class="col-3 px-1">
+                            <div class="donation-amount-label">
+                                <input name="donation-value" value="5" type="radio" style="display: none;" />
+                                $5
+                            </div>
+                        </div>
+                        <div class="col-6 pl-1">
+                            <div class="donation-amount-label">
+                            <input name="donation-value" value="10" type="radio" style="display: none;" />
+                                $10
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row text-center mt-2">
+                        <div class="col-4 pr-1">
+                            <div class="donation-amount-label max-donation-value">
+                                <input name="donation-value" value="" type="radio" style="display: none;" />
+                                $<span></span>
+                            </div>
+                        </div>
+                        <div class="col-8 pl-1">
+                            <input name="other-value" placeholder="Other amount" type="number" class="donation-amount-label form-control py-1 py-md-0 bg-transparent text-light" style="height: 100%;" />
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-outline-info btn-sm w-100 mt-2">Donate <i class="fas fa-hand-holding-usd pl-2"></i></button>
+                </form>
+            </div>
+        </div>
+    {% endif %}
+{% endfor %}

@@ -1,0 +1,3 @@
+This project was created by Bohdan Khvorostovskyi.
+SpaceGuy.org
+All rights are reserved and belong to SpaceGuyDev LLC.

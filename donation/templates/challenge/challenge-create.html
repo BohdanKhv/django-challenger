@@ -1,0 +1,39 @@
+{% include 'main/includes/header.html' %}
+{% include 'main/includes/messages.html' %}
+
+<main>
+    <div class="row align-items-center justify-content-center mt-5">
+        <div class="col col-6 text-center">
+            <form class="needs-validation" method="POST" action="{% url 'challenge_create' %}">
+                <h3>
+                    Create a challenge:
+                </h3>
+                <br>
+                {% csrf_token %}
+                <div class="my-3">
+                    <h6 class="text-danger">{{ form.non_field_errors  }}</h6>
+                    <h6 class="text-danger">{{ form.about.errors.as_text }}</h6>
+                    <h6 class="text-danger">{{ form.price_goal.errors.as_text }}</h6>
+                    <h6 class="text-danger">{{ form.tags.errors.as_text }}</h6>
+                </div>
+                <div class="form-group">
+                    <label for="id_about">Context:</label>
+                    {{ form.about }}
+                </div>
+                <div class="form-group">
+                    <label for="id_price_goal">Goal:</label>
+                    {{ form.price_goal }}
+                </div>
+                <div class="form-group">
+                    <label for="id_tags">Tags:</label>
+                    <br>
+                    <small class="float-left">Tip! Make a comma-separated list of tags..</small>
+                    {{ form.tags }}
+                </div>
+                <button type="submit" class="btn btn-dark w-100">Create</button>
+            </form>
+        </div>
+    </div>
+</main>
+{% include 'main/includes/navbar.html' %}
+{% include 'main/includes/footer.html' %}

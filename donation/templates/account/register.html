@@ -1,0 +1,40 @@
+{% include 'main/includes/header.html' %}
+
+{% block content %}
+<main class="logIn">
+    <div class="row align-items-center justify-content-center">
+        <div class="col col-6 text-center">
+            <form class="needs-validation" method="POST" action="{% url 'register' %}">
+                <h3>
+                    Create an account
+                </h3>
+                <br>
+                {% csrf_token %}
+                <div>
+                    <h6 class="text-danger">{{ form.non_field_errors  }}</h6>
+                    <h6 class="text-danger">{{ form.username.errors }}</h6>
+                    <h6 class="text-danger">{{ form.email.errors }}</h6>
+                    <h6 class="text-danger">{{ form.password2.errors }}</h6>
+                </div>
+                <div class="form-group">
+                    <label for="id_username">Username</label>
+                    {{ form.username }}
+                </div>
+                <div class="form-group">
+                    <label for="id_email">Email</label>
+                    {{ form.email }}
+                </div>
+                <div class="form-group">
+                    <label for="id_password1">Password</label>
+                    {{ form.password1 }}
+                </div>
+                <div class="form-group">
+                    <label for="id_password2">Confirm password</label>
+                    {{ form.password2 }}
+                </div>
+                <button type="submit" class="btn btn-dark w-100">Create</button>
+            </form>
+        </div>
+    </div>
+</main>
+{% endblock %}

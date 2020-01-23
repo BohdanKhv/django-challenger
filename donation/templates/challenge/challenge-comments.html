@@ -1,0 +1,30 @@
+{% for comment in challenges.comment_challenge.all %}
+
+    <div class="row justify-content-center opacity-one">
+        <div class="col-3">
+            <div class="avatar text-center">
+                <div style="background-image: URL(/media/{{ comment.user.user_profile.profile_photo }}); width: 60px; height: 60px;"
+                     class="profile-photo rounded-circle">
+                </div>
+            </div>
+        </div>
+        <div class="col-9 pl-md-0">
+            <h6 class="mb-0">
+                <a class="text-light" href="{% url 'user_profile' comment.user.pk %}">{{ comment.user.username }}</a>
+                <small class="float-right">{{ comment.published }}</small>
+            </h6>
+            <small class="text-info">
+                {{ comment.published|timesince }} ago
+            </small>
+            <p>
+                {{ comment.comment }}
+            </p>
+            {% if user == comment.user %}
+                <small>
+                    <a class="deleteCommentForm text-danger float-right" data-comment-pk="comment.pk" href="{% url 'challenge_comment_delete' comment.pk %}">Delete</a>
+                </small>
+            {% endif %}
+        </div>
+        <hr class="w-100 mx-4">
+    </div>
+{% endfor %}

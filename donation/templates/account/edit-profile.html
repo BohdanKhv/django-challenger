@@ -1,0 +1,62 @@
+{% include 'main/includes/header.html' %}
+{% include 'main/includes/messages.html' %}
+
+<main>
+    <div class="row align-items-center justify-content-center mb-5">
+        <div class="col col-md-4 col-6 text-center">
+            <form class="needs-validation" method="POST" action="{% url 'edit_user_profile' user.pk %}" enctype='multipart/form-data'>
+                <h3>
+                    Edit your account
+                </h3>
+                <br>
+                {% csrf_token %}
+                <div>
+                    <h6 class="text-danger">{{ user_form.non_field_errors  }}</h6>
+                    <h6 class="text-danger">{{ user_form.username.errors }}</h6>
+                    <h6 class="text-danger">{{ user_form.email.errors }}</h6>
+                    <h6 class="text-danger">{{ user_form.password2.errors }}</h6>
+                </div>
+                <div class="row align-items-center mb-3">
+                    <div class="col-md-5 col-12">
+                        <div style="background-image: URL({{ user.user_profile.profile_photo.url }});"
+                             class="profile-photo rounded-circle profile-photo-btn">
+                            <i class="fas fa-upload"></i>
+                        </div>
+                        <input class="profile-photo-input" style="display: none;" type="file" name="{{ profile_form.profile_photo.name }}" value="{{ profile_form.profile_photo.value }}" />
+                    </div>
+                    <div class="col-md-7 col-12">
+                        <div class="form-group">
+                            <label for="id_username">Username</label>
+                            {{ user_form.username }}
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5 col-12">
+                        <div class="form-group">
+                            <label for="id_first_name">First Name</label>
+                            {{ user_form.first_name }}
+                        </div>
+                    </div>
+                    <div class="col-md-7 col-12">
+                        <div class="form-group">
+                            <label for="id_last_name">Last Name</label>
+                            {{ user_form.last_name }}
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="id_email">Email</label>
+                    {{ user_form.email }}
+                </div>
+                <div class="form-group">
+                    <label for="id_about">About me</label>
+                    {{ profile_form.about }}
+                </div>
+                <button type="submit" class="btn btn-dark w-100 mt-2">Update</button>
+            </form>
+        </div>
+    </div>
+</main>
+{% include 'main/includes/navbar.html' %}
+{% include 'main/includes/footer.html' %}

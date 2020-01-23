@@ -1,0 +1,30 @@
+{% include 'main/includes/header.html' %}
+<main class="logIn">
+    <div class="row align-items-center justify-content-center">
+        <div class="col col-6 text-center">
+            <form method="POST" action="{% url 'log_in' %}">
+                <h3>
+                    Log in
+                </h3>
+                <br>
+                {% csrf_token %}
+                <div>
+                    <h6 class="text-danger">{{ form.non_field_errors  }}</h6>
+                </div>
+                <div class="form-group">
+                    <label for="id_username">Email or username</label>
+                    {{ form.username }}
+                </div>
+                <div class="form-group">
+                    <label for="id_password">Password</label>
+                    {{ form.password }}
+                </div>
+                <br>
+                <button type="submit" class="btn btn-dark w-100">Log in</button>
+            </form>
+        </div>
+    </div>
+</main>
+
+{% include 'main/includes/footer.html' %}
+

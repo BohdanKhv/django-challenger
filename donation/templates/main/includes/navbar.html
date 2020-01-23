@@ -1,0 +1,31 @@
+{% if user.is_authenticated  %}
+
+<nav>
+    <div class="row justify-content-center bottom-nav m-0">
+        <div class="col-md-6">
+            <div class="row text-center">
+                <div class="col-3">
+                    <a href="{% url 'feed' %}">
+                        <i class="fas fa-home"></i>
+                    </a>
+                </div>
+                <div class="col-3">
+                    <a href="{% url 'user_search' %}">
+                        <i class="fas fa-search"></i>
+                    </a>
+                </div>
+                <div class="col-3">
+                    <a href="{% url 'challenge_create' %}">
+                        <i class="fas fa-feather-alt"></i>
+                    </a>
+                </div>
+                <div class="col-3">
+                    <a href="{% url 'user_profile' user.pk %}">
+                        <i class="fas fa-user-alt"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+{% endif %}

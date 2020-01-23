@@ -1,0 +1,123 @@
+{% if user.is_authenticated  %}
+
+{% include 'main/includes/header.html' %}
+{% include 'main/includes/messages.html' %}
+
+<main>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <div class="card user mb-3 shadow-sm-white">
+                    <div class="card-body">
+                        <div>
+                            <div class="row justify-content-center">
+                                <div class="col-4">
+                                    <div class="avatar text-center">
+                                        <div style="background-image: URL({{ user_pk.user_profile.profile_photo.url }});"
+                                             class="profile-photo rounded-circle">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-8">
+                                    <h5>{{ user_pk.username }}</h5>
+                                    <div>
+                                    {% if user == user_pk %}
+                                        <a class="text-dark" href="{% url 'edit_user_profile' user.pk %}">Edit profile</a>
+                                    {% endif %}
+                                    </div>
+                                    {% if user == user_pk %}
+                                        <a href="#" class="text-warning" title="Buy more gold">
+                                            <i class="fas fa-coins text-warning mr-1 mt-2"></i>{{ user.user_profile.gold }}
+                                        </a>
+                                    {% endif %}
+                                    <div class="row">
+                                        <div class="col-3 pr-0">
+                                            <a class="btn btn-link text-info btn-sm my-2 p-0 mr-1" title="Challenges uploaded">
+                                                <i class="fas fa-feather text-info mr-1"></i> {{ user_pk.user_challenge.all.count }}
+                                            </a>
+                                        </div>
+                                        <div class="col-4 p-0">
+                                            <a href="{% url 'user_follows' user_pk.pk %} " class="btn btn-link text-info btn-sm my-2 py-0 mr-1">
+                                                Follow {{ user_pk.user_profile.follows.all.count }}
+                                            </a>
+                                        </div>
+                                        <div class="col-5 p-0">
+                                            <a href="{% url 'user_followers' user_pk.pk %}" class="btn btn-link text-info btn-sm my-2 py-0">
+                                                Followers {{ user_pk.user_profile.user_followers.all.count }}
+                                            </a>
+                                        </div>
+                                    </div>
+                                    {% if user != user_pk %}
+                                        {% if user_pk.user_profile in user.user_profile.follows.all %}
+                                            <a href="{% url 'user_follow' user_pk.pk %}" class="followToggleForm btn btn-sm btn-outline-danger pt-0 pb-0 mb-1">Unfollow</a>
+                                        {% else %}
+                                            <a href="{% url 'user_follow' user_pk.pk %}" class="followToggleForm btn btn-sm btn-outline-info pt-0 pb-0 mb-1">Follow</a>
+                                        {% endif %}
+                                    {% endif %}
+                                    <p>
+                                        {{ user_pk.user_profile.about }}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <a href="{% url 'user_profile' user_pk.pk %}" class="w-100 btn btn-outline-info">
+                    <i class="fas fa-arrow-left"></i>
+                </a>
+                <div class="card my-3 shadow-sm content">
+                    <div class="card-body">
+                        <div class="user-content">
+                            {% for use in user_pk.user_profile.user_followers.all %}
+                            <div class="card user my-3 shadow-sm-white">
+                                <div class="card-body">
+                                    <div>
+                                        <div class="row justify-content-center">
+                                            <div class="col-4">
+                                                <div class="avatar text-center">
+                                                    <div style="background-image: URL({{ use.user.user_profile.profile_photo.url }});"
+                                                         class="profile-photo rounded-circle">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-8">
+                                                <a class="text-light" href="{% url 'user_profile' use.user.pk %}" title="View profile">
+                                                    <h5>{{ use.user.username }}</h5>
+                                                </a>
+                                                {% if user != use.user %}
+                                                {% if use.user.user_profile in user.user_profile.follows.all %}
+                                                    <a href="{% url 'user_follow' use.user.pk %}" class="btn btn-sm btn-outline-danger pt-0 pb-0 mb-1">Unfollow</a>
+                                                {% else %}
+                                                    <a href="{% url 'user_follow' use.user.pk %}" class="btn btn-sm btn-outline-info pt-0 pb-0 mb-1">Follow</a>
+                                                {% endif %}
+                                                {% endif %}
+                                                <div>
+                                                    <a class="btn btn-link text-info btn-sm my-2 p-0 mr-1" title="Challenges uploaded">
+                                                        <i class="fas fa-feather text-info mr-1"></i> {{ use.user.user_challenge.all.count }}
+                                                    </a>
+                                                    <a href="{% url 'user_follows' use.user.pk %}" class="btn btn-link text-info btn-sm my-2 py-0 mr-1">
+                                                        Follow {{ use.user.user_profile.follows.all.count }}
+                                                    </a>
+                                                    <a href="{% url 'user_followers' use.user.pk %}" class="btn btn-link text-info btn-sm my-2 py-0">
+                                                        Followers {{ use.user.user_profile.user_followers.all.count }}
+                                                    </a>
+                                                </div>
+                                                <p>
+                                                    {{ use.user.user_profile.about }}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% include 'main/includes/navbar.html' %}
+{% include 'main/includes/footer.html' %}
+{% endif %}

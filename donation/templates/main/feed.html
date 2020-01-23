@@ -1,0 +1,149 @@
+{% if user.is_authenticated  %}
+
+{% include 'main/includes/header.html' %}
+{% include 'main/includes/messages.html' %}
+
+<main>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <a href="{% url 'challenge_create' %}" class="w-100 mb-2 btn btn-outline-info">
+                    <i class="fas fa-plus"></i>
+                </a>
+                <a href="{% url 'user_profile' user.pk %}" class="w-100 mt-2 btn btn-outline-info">
+                    <i class="fas fa-arrow-left"></i>
+                </a>
+                <div class="card my-3 shadow-sm content">
+                    <div class="card-body">
+                        <div class="user-content">
+                            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" id="challenges-tab" data-toggle="tab" href="#challenges" role="tab" aria-controls="home" aria-selected="true">
+                                        Challenges
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="participation-tab" data-toggle="tab" href="#participation" role="tab" aria-controls="profile" aria-selected="false">
+                                        Participation
+                                    </a>
+                                </li>
+                            </ul>
+                            <div class="tab-content" id="myTabContent">
+                                <div class="tab-pane fade show active" id="challenges" role="tabpanel" aria-labelledby="challenges-tab">
+                                    <div class="row mt-3">
+                                        <div class="col-12 in-progress">
+                                        {% for users in user.user_profile.follows.all %}
+                                        {% for challenge in users.user.user_challenge.all %}
+                                            <div class="col-12 my-3">
+                                                <div class="{% if challenge.status == 'Failed' %}
+                                                    accomplished-fail
+                                                {% elif challenge.status == 'Waiting' %}
+                                                    accomplished-waiting
+                                                {% elif challenge.status == 'Success' %}
+                                                    accomplished-success
+                                                {% else %}
+                                                    challenge
+                                                {% endif %}
+                                                challenge shadow-sm">
+                                                <a href="{% url 'user_profile' challenge.user.pk %}">
+                                                    <h6 class="float-left">{{ challenge.user.username }}</h6>
+                                                </a>
+                                                    {% if challenge.status != 'Active' %}
+                                                        <a href="{% url 'challenge_view' challenge.pk %}">
+                                                    {% endif %}
+                                                        <h6 class="text-right">{{ challenge.status }}</h6>
+                                                        <p>
+                                                            {{ challenge.about }}
+                                                        </p>
+                                                        <div class="mt-3">
+                                                            {% for tag in challenge.tags.all %}
+                                                                <span class="badge badge-info">
+                                                                    {{ tag }}
+                                                                </span>
+                                                            {% endfor %}
+                                                        </div>
+                                                        <p class="text-right">{{ challenge.published }}</p>
+                                                        <div class="progress mt-2">
+                                                            <div class="progress-bar progress-bar bg-info" role="progressbar" style="width: 100%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
+                                                            <p>$<span class="reached">{{ challenge.price_reached }}</span> / $<span class="goal">{{ challenge.price_goal }}</span></p>
+                                                            </div>
+                                                        </div>
+                                                    {% if challenge.status != 'Active' %}
+                                                        </a>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        {% endfor %}
+                                        {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="participation" role="tabpanel" aria-labelledby="participation-tab">
+                                    <div class="row mt-3">
+                                        <div class="col-12 participation-in-progress">
+                                        {% for users in user.user_profile.follows.all %}
+                                        {% for challenge in users.user.user_profile.donated.all %}
+                                            <div class="col-12 my-3">
+                                                <div class="{% if challenge.status == 'Failed' %}
+                                                    accomplished-fail
+                                                {% elif challenge.status == 'Waiting' %}
+                                                    accomplished-waiting
+                                                {% elif challenge.status == 'Success' %}
+                                                    accomplished-success
+                                                {% else %}
+                                                    challenge
+                                                {% endif %}
+                                                challenge shadow-sm">
+                                                <div>
+                                                    <small>
+                                                        <a href="{% url 'user_profile' users.user.pk %}">
+                                                            {{ users.user.username }}
+                                                        </a>
+                                                        <i class="fa fa-arrow-right text-dark"></i>
+                                                        <a href="{% url 'user_profile' challenge.user.pk %}">
+                                                            {{ challenge.user.username }}
+                                                        </a>
+                                                    </small>
+                                                </div>
+                                                    {% if challenge.status != 'Active' %}
+                                                        <a href="{% url 'challenge_view' challenge.pk %}">
+                                                    {% endif %}
+                                                        <h6 class="text-right">{{ challenge.status }}</h6>
+                                                        <p>
+                                                            {{ challenge.about }}
+                                                        </p>
+                                                        <div class="mt-3">
+                                                            {% for tag in challenge.tags.all %}
+                                                                <span class="badge badge-info">
+                                                                    {{ tag }}
+                                                                </span>
+                                                            {% endfor %}
+                                                        </div>
+                                                        <p class="text-right">{{ challenge.published }}</p>
+                                                        <div class="progress mt-2">
+                                                            <div class="progress-bar progress-bar bg-info" role="progressbar" style="width: 100%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
+                                                            <p>$<span class="reached">{{ challenge.price_reached }}</span> / $<span class="goal">{{ challenge.price_goal }}</span></p>
+                                                            </div>
+                                                        </div>
+                                                    {% if challenge.status != 'Active' %}
+                                                        </a>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        {% endfor %}
+                                        {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% include 'main/includes/navbar.html' %}
+{% include 'main/includes/footer.html' %}
+{% endif  %}

@@ -1,0 +1,43 @@
+{% if user.is_authenticated  %}
+{% if user.pk == object.user.pk  %}
+
+{% include 'main/includes/header.html' %}
+{% include 'main/includes/messages.html' %}
+
+<main>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <a href="{% url 'user_profile' user.pk %}" class="w-100 mb-3 btn btn-outline-info">
+                    <i class="fas fa-arrow-left"></i>
+                </a>
+                <div class="card user mb-3 shadow-sm-white">
+                    <div class="card-body">
+                        <div class="user-content">
+                            <div class="tab-content" id="myTabContent">
+                                <div class="tab-pane fade show active" id="challenges" role="tabpanel" aria-labelledby="challenges-tab">
+                                    <div class="row mt-3">
+                                        <div class="col-12 in-progress">
+                                            <form method="POST">
+                                                {% csrf_token %}
+                                                <h5>
+                                                    <span class="text-danger">Delete</span> <span class="text-info">"{{ object.about }}"</span> challenge?
+                                                </h5>
+                                                <button class="w-100 mb-2  btn btn-outline-danger" type="submit">Yes</button>
+                                                <a class="w-100 mt-2 btn btn-outline-light" href="{% url 'user_profile' user.pk %}">No</a>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% include 'main/includes/navbar.html' %}
+{% include 'main/includes/footer.html' %}
+{% endif  %}
+{% endif  %}
